@@ -7,4 +7,5 @@ It is currently only compatible with Windows but I will change that in the futur
 3. `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay/`
 4. `cd SpotifyOverlay`
 5. `python overlay.py`
-6. Feel free to modify!
+6. `pyinstaller --onefile overlay.py`
+7. Feel free to modify and recompile!
