@@ -7,5 +7,5 @@ I know that there is many bugs but a lot of them end up fixing themselves after 
 2. Use literally any compiler, for this example I am going to be using pyinstaller.
 3. `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay/`
 4. `cd SpotifyOverlay`
-6. `pyinstaller --onefile overlay.py`
+6. `pyinstaller --onefile .\Spotify Overlay.py`
 7. Feel free to modify and recompile!
