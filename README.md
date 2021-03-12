@@ -8,8 +8,8 @@ This is a simple yet powerful Spotify Overlay.
 3. Gets images from Spotify and updates them every 5 seconds to avoid downloading 2 images and processing them every second. 
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resoulution to always stay on your screen even if a song name is a lot longer.  
-6. It is always on top
-Example:  
+6. It is always on top  
+Example of Dynamic Resolution:  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>  
 ***How To Set Up***  
    1. Clone the repo with
