@@ -1,9 +1,10 @@
 # SpotifyOverlay
 This is a very simple Spotify overlay written in Python 3.
 It is currently only compatible with Windows but I will change that in the future.
-I know that there is many bugs but a lot of them end up fixing themselves after some time.  
-*This is currently unusable because I am currently working on handling requests server-sided and need to implement that.  
-This will make it a lot easier*  
+I know that there is many bugs but a lot of them end up fixing themselves after some time.   
+
+***This is currently unusable because I am currently working on handling requests server-sided and need to implement that.  
+This will make it a lot easier***   
   
     
 *Instructions for Compiling*
