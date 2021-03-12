@@ -30,8 +30,8 @@ Example:
       <img src="https://cdn.discordapp.com/attachments/814731117416546307/819976440639520818/unknown.png"/>
    5. Run the app with Python  
     *Windows*  
-      `py main.py`  
+      `py main.py` Or `.\SpotifyOverlay.exe` or just run it from file explorer.  
     *Linux*  
-      `python3 main.py`  
+      `python3 main.py` or run from file explorer.  
       **Macos support is current unavailible due to me not being able to test it. I will see if I can test it as soon  as possible**
       
