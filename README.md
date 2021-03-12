@@ -11,7 +11,7 @@ This is a simple yet powerful Spotify Overlay.
 6. It is always on top  
 Example of Dynamic Resolution:  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>  
 ***How To Set Up***  
    1. Clone the repo with
       `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay`
