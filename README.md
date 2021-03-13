@@ -7,8 +7,7 @@ I thought, why not make my own?
 ***Roadmap***  
 1. Test on all platforms.  
 2. Increase performance by importing only what is needed. - DONE 
-3. Add a config system.  
-
+3. Add a config system. - Almost done, not pushed yet. Will be pushed later tonight.  
 ***Features***  
 1. Updates text every second, so the timer is perfect except for a bug that lasts for around 1 second  
 2. Uses 45-50mb of ram and around 1% CPU on my low-end laptop.  
