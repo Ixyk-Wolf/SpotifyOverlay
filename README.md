@@ -6,17 +6,20 @@ So I have been looking for something like this ever since I got Spotify.
 I thought, why not make my own?  
 ***Roadmap***  
 1. Test on all platforms.  
-2. Increase performance by importing only what is needed.  
+2. Increase performance by importing only what is needed. - DONE 
 3. Add a config system.  
+
 ***Features***  
-1. Updates text every second so the timer is perfect.  
-2. Uses 45-60mb of ram and around 1% CPU on my low end laptop.  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820058771962986556/unknown.png"/>
-3. Gets images from Spotify and updates them every 5 seconds to avoid downloading 2 images and processing them every second. 
+1. Updates text every second, so the timer is perfect except for a bug that lasts for around 1 second  
+2. Uses 45-50mb of ram and around 1% CPU on my low-end laptop.  
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820186391052943370/unknown.png"/>
+3. Grabs images from Spotify and updates them every 5 seconds to avoid downloading 2 images and processing them every second. 
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resoulution to always stay on your screen even if a song name is a lot longer.  
 6. It is always on top  
-7. Automatically gets image accent colors and sets them  as the background along with getting the opposite accent colors and putting them as the font for it to look good.  
+7. Automatically gets image accent colors and sets them  as the background along with getting the opposite accent colors and putting them as the font for it to look good.
+8. Almost always shows up-to-date information.  
+9. Handles errors by hiding the GUI until the error stops.  
 Example of Dynamic Resolution:  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>  
