@@ -1,6 +1,13 @@
 **Simple Spotify Overlay**  
 This is a simple yet powerful Spotify Overlay.  
 <img src="https://cdn.discordapp.com/attachments/814731117416546307/819965785987481600/unknown.png"/>  
+***About***   
+So I have been looking for something like this ever since I got Spotify.  
+I thought, why not make my own?  
+***Roadmap***  
+1. Test on all platforms.  
+2. Increase performance by importing only what is needed.  
+3. Add a config system.  
 ***Features***  
 1. Updates text every second so the timer is perfect.  
 2. Uses 45-60mb of ram and around 1% CPU on my low end laptop.  
@@ -9,6 +16,7 @@ This is a simple yet powerful Spotify Overlay.
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resoulution to always stay on your screen even if a song name is a lot longer.  
 6. It is always on top  
+7. Automatically gets image accent colors and sets them  as the background along with getting the opposite accent colors and putting them as the font for it to look good.  
 Example of Dynamic Resolution:  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>  
