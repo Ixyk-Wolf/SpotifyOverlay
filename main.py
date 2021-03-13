@@ -100,9 +100,7 @@ class SpotifyOverlay():
     def hide(self):
         self.win.withdraw()
     def parseseconds(self, millis):
-        seconds = millis / (1000 ^ 60) %60
-        return int(seconds)
+        return (millis // 1000) % 60
     def parseminutes(self, millis):
-        minutes = millis / (1000 * 60) % 60
-        return int(minutes)
+        return (millis // (1000 * 60)) % 60
 SpotifyOverlay()
