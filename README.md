@@ -3,8 +3,8 @@ This is a simple yet powerful Spotify Overlay.
 <img src="https://cdn.discordapp.com/attachments/814731117416546307/819965785987481600/unknown.png"/>  
 ***Features***  
 1. Updates text every second so the timer is perfect.  
-2. Uses 15-25mb of ram and around 1% CPU on my low end laptop.  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820011218190073876/unknown.png"/>
+2. Uses 45-60mb of ram and around 1% CPU on my low end laptop.  
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820058771962986556/unknown.png"/>
 3. Gets images from Spotify and updates them every 5 seconds to avoid downloading 2 images and processing them every second. 
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resoulution to always stay on your screen even if a song name is a lot longer.  
@@ -22,7 +22,7 @@ Example of Dynamic Resolution:
       1. Go to https://developer.spotify.com/ and register an application.  
        <img src="https://cdn.discordapp.com/attachments/814731117416546307/819970864459939861/unknown.png"/>  
          Copy the Client ID and Client Secret. Do not share the Client Secret. Put them into 2 text files in the same directory as main.py. The names of them should be "clientid.txt" and "clientsecret.txt"  
-         It should look like this: 
+         It should look like this:  
          <img src="https://cdn.discordapp.com/attachments/814731117416546307/819971812791287829/unknown.png"/>  
          Or like this:  
          <img src="https://cdn.discordapp.com/attachments/814731117416546307/820011941433966602/unknown.png"/>
