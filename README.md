@@ -22,14 +22,14 @@ I thought, why not make my own?
 9. Handles errors by hiding the GUI until the error stops.  
 10. Plenty of configuration options availible in config.ini  
 Example of Dynamic Resolution:  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>   
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>   
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>  
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>  
 ***How To Set Up***  
    1. Clone the repo or go to the releases tab.  
       To Clone: `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay`
        2. Go into the directory  
         `cd SpotifyOverlay`  
-      To download: Go to the releases tab and download the latest SpotifyOverlay.exe
+      To download: Discontinued because they are around 5x slower.
    3. Get your Client ID and Client Secret.
       1. Go to https://developer.spotify.com/ and register an application.  
        <img src="https://cdn.discordapp.com/attachments/814731117416546307/819970864459939861/unknown.png"/>  
@@ -47,7 +47,7 @@ Example of Dynamic Resolution:
       <img src="https://cdn.discordapp.com/attachments/814731117416546307/819976440639520818/unknown.png"/>
    5. Run the app with Python  
     *Windows*  
-      `py main.py` Or `.\SpotifyOverlay.exe` or just run it from file explorer.  
+      `py main.py` or just run it from file explorer.  
     *Linux*  
       `python3 main.py` or run from file explorer.  
       **Macos support is current unavailible due to me not being able to test it. I will see if I can test it as soon  as possible**
