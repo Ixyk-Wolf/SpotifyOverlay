@@ -50,9 +50,9 @@ I thought, why not make my own?
       2. Copy the Client ID and Client Secret. (Do not share the Client Secret) Put them inside `config.ini` file and you can also make other changes as per your preferences.
       3. Go to your application's settings on https://developer.spotify.com/dashboard  
       <img src="https://cdn.discordapp.com/attachments/814731117416546307/819973689990709258/unknown.png"/>
-      4. Scroll down and look for Redirect URIs  and type http://localhost:8080/  and click on Add button.
-      <img src="https://cdn.discordapp.com/attachments/814731117416546307/819975858122522624/unknown.png"/>  
-      5. After adding above URI there, Scroll Down and click on SAVE button.  
+      iv. Scroll down and look for Redirect URIs  and type http://localhost:8080/  and click on Add button.
+      <img src="https://cdn.discordapp.com/attachments/814731117416546307/819975858122522624/unknown.png"/><br/>
+      v. After adding above URI there, Scroll Down and click on SAVE button.  
       <img src="https://cdn.discordapp.com/attachments/814731117416546307/819976440639520818/unknown.png"/>
 4. *Hooray!!* You have finally completed all the important configuration stuff. Now, you can run your app with Python using following command-  
 
@@ -67,4 +67,4 @@ I thought, why not make my own?
    <br/>
     **For MAC Users**
     
-    Not tested on Macintosh but I will update here as soon as I test it.
+    Not tested on Macintosh but will update here as soon as I test it.
