@@ -6,18 +6,28 @@ from PIL import Image, ImageTk, ImageChops
 from requests import get
 from colormap import rgb2hex
 from io import BytesIO
-with open("clientid.txt", "r") as idfile:
-    id = idfile.read().strip()
-    idfile.close()
-with open("clientsecret.txt", "r") as secretfile:
-    secret = secretfile.read().strip()
-    secretfile.close()
-auth_manager = SpotifyOAuth(scope="user-read-private user-read-playback-state user-modify-playback-state", client_id=id,
-                            client_secret=secret, redirect_uri="http://localhost:8080/")
-OPTIONS = [
-"Left",
-"Right"
-]
+from configparser import ConfigParser
+config = ConfigParser()
+config.read("config.ini")
+clientid = config["Keys"]["clientid"]
+clientsecret = config["Keys"]["clientsecret"]
+font = config["Config"]["fontname"]
+fontsize = int(config["Config"]["fontsize"])
+debug = config["Config"]["debug"]
+frontborder = config["Config"]["progressbarstartborder"]
+endborder = config["Config"]["progressbarendborder"]
+fill = config["Config"]["progressbarfilled"]
+emptyfill = config["Config"]["progressbarempty"]
+if debug.lower() == "true":
+    import datetime
+imagepos = config["Config"]["imagepos"]
+if imagepos.upper() == "RIGHT":
+    imagepos = RIGHT
+else:
+    imagepos = LEFT
+screenpos = config["Config"]["screenpos"]
+auth_manager = SpotifyOAuth(scope="user-read-private user-read-playback-state user-modify-playback-state",
+                            client_id=clientid, client_secret=clientsecret, redirect_uri="http://localhost:8080/")
 def disable_event():
     pass
 class SpotifyOverlay():
@@ -27,7 +37,7 @@ class SpotifyOverlay():
         self.tk_var = StringVar()
         self.tk_var.set("0")
         self.win.protocol("WM_DELETE_WINDOW", disable_event)
-        self.lab = Label(self.win, textvariable=self.tk_var, bg=f"#808080", fg="#FFFFFF", font="Mono 11")
+        self.lab = Label(self.win, textvariable=self.tk_var, bg=f"#808080", fg="#FFFFFF", font=(font, fontsize))
         self.lab.place(x=0, y=0)
         self.win.attributes('-topmost', True)
         self.width = self.win.winfo_screenwidth()
@@ -64,23 +74,32 @@ class SpotifyOverlay():
                 accent = self.getimgcolorcode(big)
                 inv_accent = self.getinvimgcolorcode(big)
                 self.lab.image = img
-                self.lab.configure(textvariable=self.tk_var, image=img, compound=LEFT, bg=rgb2hex(accent[0], accent[1], accent[2]), fg=rgb2hex(inv_accent[0], inv_accent[1], inv_accent[2]))
+                self.lab.configure(textvariable=self.tk_var, image=img, compound=imagepos, bg=rgb2hex(accent[0], accent[1], accent[2]), fg=rgb2hex(inv_accent[0], inv_accent[1], inv_accent[2]))
                 self.count = 1
             songname = data["item"]["name"]
             artist = data['item']['artists'][0]['name']
             progress = data["progress_ms"]
             length = data["item"]["duration_ms"]
+            progressbar = self.progressbar(length, progress)
             duration = f"{self.parseminutes(length)}:{self.parseseconds(length)}"
             intotrack = f"{self.parseminutes(progress)}:{self.parseseconds(progress)}"
             h = (int(self.height)) / 2
-            w = (int(self.width)) - self.lab.winfo_width() - 15
+            if screenpos.lower() == "right":
+                w = (int(self.width)) - self.lab.winfo_width() - 15
+            else:
+                w = 15
             self.win.geometry("%dx%d+%d+%d" % (self.lab.winfo_width(), self.lab.winfo_height(),w, h))
-            self.tk_var.set(f"Current Playing:\n{songname}\n By: {artist}\n{intotrack} / {duration}")
+            self.tk_var.set(f"Current Playing:\n{songname}\n By: {artist}\n{intotrack} / {duration}\n{progressbar}")
+            if debug == "true":
+                time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                print(f"[INFO-{time}]- Request completed.")
         except Exception as err:
             self.hide()
-            print(err)
+            if debug == "true":
+                time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                print(f"[INFO-{time}]- Request failed with error {err}")
         self.olddata = data
-        self.win.after(650, self.updater)
+        self.win.after(750, self.updater)
     def getimgcolorcode(self, content):
         img = Image.open(BytesIO(content.content))
         img.convert("RGB")
@@ -103,4 +122,38 @@ class SpotifyOverlay():
         return (millis // 1000) % 60
     def parseminutes(self, millis):
         return (millis // (1000 * 60)) % 60
+    def progressbar(self, duration, progress):
+        mduration = duration * 0.1
+        if progress > mduration:
+            bar = f"{frontborder}{fill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+            mduration = duration * 0.2
+            if progress > mduration:
+                bar = f"{frontborder}{fill}{fill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+                mduration = duration * 0.3
+                if progress > mduration:
+                    bar = f"{frontborder}{fill}{fill}{fill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+                    mduration = duration * 0.4
+                    if progress > mduration:
+                        bar = f"{frontborder}{fill}{fill}{fill}{fill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+                        mduration = duration * 0.5
+                        if progress > mduration:
+                            bar = f"{frontborder}{fill}{fill}{fill}{fill}{fill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+                            mduration = duration * 0.6
+                            if progress > mduration:
+                                bar = f"{frontborder}{fill}{fill}{fill}{fill}{fill}{fill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+                                mduration = duration * 0.7
+                                if progress > mduration:
+                                    bar = f"{frontborder}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{emptyfill}{emptyfill}{endborder}"
+                                    mduration = duration * 0.8
+                                    if progress > mduration:
+                                        bar = f"{frontborder}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{emptyfill}{emptyfill}{endborder}"
+                                        mduration = duration * 0.9
+                                        if progress > mduration:
+                                            bar = f"{frontborder}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{emptyfill}{endborder}"
+                                            mduration = duration * 0.95
+                                            if progress == mduration:
+                                                bar = f"{frontborder}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{fill}{endborder}"
+        else:
+            bar = f"{frontborder}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{emptyfill}{endborder}"
+        return bar
 SpotifyOverlay()
