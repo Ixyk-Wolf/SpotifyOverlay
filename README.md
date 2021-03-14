@@ -22,8 +22,8 @@ I thought, why not make my own?
 9. Handles errors by hiding the GUI until the error stops.  
 10. Plenty of configuration options availible in config.ini  
 Example of Dynamic Resolution:  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>  
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/819966525577625600/unknown.png"/>   
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>   
 ***How To Set Up***  
    1. Clone the repo or go to the releases tab.  
       To Clone: `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay`
