@@ -12,15 +12,19 @@ I thought, why not make my own?
 
 ## Roadmap  
 
- - [ ] Testing on all platforms.
  - [x] Improving performance by removing unnecessary imports.
- - [x] Add a config system.
+ - [x] Add a config system.  
+ - [x] Optimizations regarding images
+ - [x] Add more configuration options
+ - [ ] Testing on all platforms.
 
-  
+## Requirements
+ - Python 3.6 or higher
+ - Spotify & Spotify Developer Account
 
 ## Features
-1. Updates text every second. So, the timer is perfect except for a bug that lasts for around 1 second .
-2. Uses only 45-50 MB of Ram and around 1% CPU on my low-end laptop.  
+1. Updates text every second. So, the timer is perfect.
+2. Uses only 45-50 MB of Ram and around 1-2% CPU on my low-end laptop.  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/820186391052943370/unknown.png"/>
 3. Grabs images from Spotify and updates them every 5 seconds to avoid downloading 2 images and processing them every second. 
 4. Automatically hides when a song is not found or when a song is paused.
@@ -39,8 +43,9 @@ I thought, why not make my own?
 ## Installation  
 1. Clone this repository or go to the releases tab. Run the following command to clone this repository.
 `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay`
-2. Go inside our directory-  
-        `cd SpotifyOverlay`  
+2. Go inside our directory and install requirements.  
+   1. `cd SpotifyOverlay`
+   2. `pip install -r requirements.txt` or `pip3 install -r requirements.txt` depending on platform.
 
 	*(You can manually download this repository as zip but it is not preferred due to downloading speed issues)*
 
