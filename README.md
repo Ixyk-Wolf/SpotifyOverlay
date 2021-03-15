@@ -26,7 +26,7 @@ I thought, why not make my own?
 1. Updates text every second. So, the timer is perfect.
 2. Uses only 45-50 MB of Ram and around 1-2% CPU on my low-end laptop.  
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/820186391052943370/unknown.png"/>
-3. Grabs images from Spotify and updates them every 5 seconds to avoid downloading 2 images and processing them every second. 
+3. Grabs images from Spotify and updates them every new song and checks if a new image is there to avoid it breaking.  
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resolution to always stay on your screen even if a song name is a lot longer.  
 6. Always on Top.
