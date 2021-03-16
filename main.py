@@ -3,9 +3,8 @@ from tkinter import messagebox
 from spotipy import *
 from spotipy.oauth2 import *
 from PIL import Image, ImageTk, ImageChops
-from requests import get
-from colormap import rgb2hex
 from io import BytesIO
+from urllib3 import PoolManager
 from configparser import ConfigParser
 config = ConfigParser()
 try:
@@ -32,6 +31,7 @@ except Exception as err:
     print(f"Error Loading Config: {err}")
 auth_manager = SpotifyOAuth(scope="user-read-private user-read-playback-state user-modify-playback-state",
                             client_id=clientid, client_secret=clientsecret, redirect_uri="http://localhost:8080/")
+spotifyObject = Spotify(auth_manager=auth_manager)
 def disable_event():
     pass
 class SpotifyOverlay():
@@ -43,11 +43,10 @@ class SpotifyOverlay():
         self.win.protocol("WM_DELETE_WINDOW", disable_event)
         self.lab = Label(self.win, textvariable=self.tk_var, bg=f"#808080", fg="#FFFFFF", font=(font, fontsize))
         self.lab.place(x=0, y=0)
+        self.labimgurl = None
         self.win.attributes('-topmost', True)
         self.width = self.win.winfo_screenwidth()
         self.height = self.win.winfo_screenheight()
-        self.requestcount = 0
-        self.win.attributes('-disabled', True)
         self.win.overrideredirect(True)
         self.olddata = None
         self.hide()
@@ -55,33 +54,18 @@ class SpotifyOverlay():
         self.updater()
         self.win.mainloop()
     def updater(self):
-        spotifyObject = Spotify(auth_manager=auth_manager)
         data = spotifyObject.current_user_playing_track()
+        if self.olddata == data:
+            self.hide()
+        else:
+            self.show()
         try:
-            self.requestcount += 1
-            self.height = self.win.winfo_screenheight()
-            imagebig = data["item"]["album"]["images"][1]["url"]
             imagesmall = data["item"]["album"]["images"][2]["url"]
-            if self.olddata == data:
-                self.hide()
-                self.updateimage(imagesmall, imagebig, ensure=False)
-            else:
-                self.show()
-            if self.olddata["item"]["album"]["images"][2]["url"] != data["item"]["album"]["images"][2]["url"]:
-                self.updateimage(imagesmall, imagebig, ensure=False)
-            else:
-                if self.requestcount == 2:
-                    self.updateimage(imagesmall, imagebig, ensure=False)
-                if self.requestcount > 8:
-                    self.ensure_image_state(imagesmall, imagebig)
-                    self.requestcount =- 5
+            self.ensure_image_state(imagesmall)
             songname = data["item"]["name"]
             artist = data['item']['artists'][0]['name']
             progress = data["progress_ms"]
             length = data["item"]["duration_ms"]
-            progressbar = self.progressbar(length, progress)
-            duration = f"{self.parseminutes(length)}:{self.parseseconds(length)}"
-            intotrack = f"{self.parseminutes(progress)}:{self.parseseconds(progress)}"
             if horizontalscreenpos.lower() == "left":
                 w = 15
             else:
@@ -92,6 +76,9 @@ class SpotifyOverlay():
                 h = self.height - self.height * 0.95
             else:
                 h = (int(self.height)) / 2
+            progressbar = self.progressbar(length, progress)
+            duration = f"{self.parseminutes(length)}:{self.parseseconds(length)}"
+            intotrack = f"{self.parseminutes(progress)}:{self.parseseconds(progress)}"
             self.win.geometry("%dx%d+%d+%d" % (self.lab.winfo_width(), self.lab.winfo_height(), w, h))
             self.tk_var.set(f"Current Playing:\n{songname}\n By: {artist}\n{intotrack} / {duration}\n{progressbar}")
             if debug == "true":
@@ -103,15 +90,15 @@ class SpotifyOverlay():
                 time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print(f"[INFO-{time}]- Request failed with error {err}")
         self.olddata = data
-        self.win.after(725, self.updater)
+        self.win.after(750, self.updater)
     def getimgcolorcode(self, content):
-        img = Image.open(BytesIO(content.content))
+        img = Image.open(BytesIO(content.data))
         img.convert("RGB")
         img.resize((1, 1), resample=0)
         dominant_color = img.getpixel((0, 0))
         return dominant_color
     def getinvimgcolorcode(self, content):
-        img = Image.open(BytesIO(content.content))
+        img = Image.open(BytesIO(content.data))
         inv_img = ImageChops.invert(img)
         inv_img.convert("RGB")
         inv_img.resize((1, 1), resample=0)
@@ -130,22 +117,19 @@ class SpotifyOverlay():
         filled = round((progress / duration) * 10)
         bar = f"{frontborder}" + f"{fill}" * filled + f"{emptyfill}" * (10 - filled) + f"{endborder}"
         return bar
-    def updateimage(self, urlsmall, urllarge, ensure : bool):
-        if ensure == True:
-            img = urlsmall
-        else:
-            small = get(urlsmall)
-            img = ImageTk.PhotoImage((Image.open(BytesIO(small.content))))
-        big = get(urllarge)
-        accent = self.getimgcolorcode(big)
-        inv_accent = self.getinvimgcolorcode(big)
+    def updateimage(self, url):
+        small = PoolManager().request("GET", url)
+        img = ImageTk.PhotoImage((Image.open(BytesIO(small.data))))
+        accent = self.getimgcolorcode(small)
+        inv_accent = self.getinvimgcolorcode(small)
         self.lab.img = img
+        self.labimgurl = url
         self.lab.configure(textvariable=self.tk_var, image=img, compound=imagepos,
-                           bg=rgb2hex(accent[0], accent[1], accent[2]),
-                           fg=rgb2hex(inv_accent[0], inv_accent[1], inv_accent[2]))
-    def ensure_image_state(self, urlsmall, urllarge):
-        small = get(urlsmall)
-        img = ImageTk.PhotoImage((Image.open(BytesIO(small.content))))
-        if self.lab.img != img:
-            self.updateimage(img, urllarge, ensure=True)
+                           bg=self.rgb2hex(accent[0], accent[1], accent[2]),
+                           fg=self.rgb2hex(inv_accent[0], inv_accent[1], inv_accent[2]))
+    def ensure_image_state(self, url):
+        if url != self.labimgurl:
+            self.updateimage(url)
+    def rgb2hex(self, r, g, b):
+        return "#{:02x}{:02x}{:02x}".format(r, g, b)
 SpotifyOverlay()
