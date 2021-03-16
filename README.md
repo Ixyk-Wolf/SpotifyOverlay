@@ -10,12 +10,16 @@ This is a simple yet powerful Spotify Overlay.
 I have been looking for something like this ever since I got Spotify.  
 I thought, why not make my own?  
 
+## Contributions
+- Thank You to gmferise for fixing parseminutes and parseseconds.
+- Thank You to Chetan-Goyal for making this README a lot better.
+- Thank You to winandfx for making progress bar a lot better.
+- Thank You to acemiller6 for helping with some compatibility issues on Mac.
+
 ## Roadmap  
 
- - [x] Improving performance by removing unnecessary imports.
- - [x] Add a config system.  
- - [x] Optimizations regarding images
- - [x] Add more configuration options
+ - [x] Add a config system.
+ - [x] Ridiculous optimizations halving the ram and completely fixing images.
  - [ ] Testing on all platforms.
 
 ## Requirements
@@ -24,16 +28,19 @@ I thought, why not make my own?
 
 ## Features
 1. Updates text every second. So, the timer is perfect.
-2. Uses only 45-50 MB of Ram and around 1-2% CPU on my low-end laptop.  
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/820186391052943370/unknown.png"/>
-3. Grabs images from Spotify and updates them every new song and checks if a new image is there to avoid it breaking.  
+2. Incredibly lightweight.
+    - Uses almost no resources while idling or updating text.
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/821265539841392640/unknown.png"/>
+    - Still incredibly light while updating images.
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/821266255503687700/unknown.png"/>
+3. Grabs images from Spotify and only updates them when the URL is different.
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resolution to always stay on your screen even if a song name is a lot longer.  
 6. Always on Top.
 7. Automatically gets image accent colours and sets them  as the background along with getting the opposite accent colours and putting them as the font for it to look good.
 8. Most of the time, It shows up-to-date information.  
 9. Handles errors by hiding the GUI until the error stops.  
-10. Plenty of configuration options are available in `config.ini` .
+10. Plenty of configuration options are available in `config.ini`.
 
 **Example of Dynamic Resolution:**
 
@@ -41,7 +48,7 @@ I thought, why not make my own?
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/820008584829075476/unknown.png"/>  
    
 ## Installation  
-1. Clone this repository or go to the releases tab. Run the following command to clone this repository.
+1. Run the following command to clone this repository.
 `git clone https://github.com/Ixyk-Wolf/SpotifyOverlay`
 2. Go inside our directory and install requirements.  
    1. `cd SpotifyOverlay`
@@ -71,5 +78,5 @@ I thought, why not make my own?
    `python3 main.py`  
    <br/>
     **For MAC Users**
-    
-    Not tested on Macintosh but will update here as soon as I test it.
+   
+    *Double click on it or whatever you do on Mac*
