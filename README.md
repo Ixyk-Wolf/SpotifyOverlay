@@ -11,15 +11,18 @@ I have been looking for something like this ever since I got Spotify.
 I thought, why not make my own?  
 
 ## Contributions
-- Thank You to gmferise for fixing parseminutes and parseseconds.
-- Thank You to Chetan-Goyal for making this README a lot better.
-- Thank You to winandfx for making progress bar a lot better.
-- Thank You to acemiller6 for helping with some compatibility issues on Mac.
+- Thank You to [gmferise](https://github.com/gmferise) for fixing parse minutes and parse seconds.
+- Thank You to [Chetan-Goyal](https://github.com/Chetan-Goyal) for making this README a lot better.
+- Thank You to [winandfx](https://www.reddit.com/user/winandfx/) for making progress bar a lot better.
+- Thank You to [acemiller6](https://www.reddit.com/user/acemiller6/) for helping with some compatibility issues on Mac.
+- Thank You to [NUTTA_BUSHA](https://www.reddit.com/user/NUTTA_BUSTAH/) for helping with some ideas on images.
+
+## Changelog
+ - More small optimizations including making some methods static
 
 ## Roadmap  
 
  - [x] Add a config system.
- - [x] Ridiculous optimizations halving the ram and completely fixing images.
  - [ ] Testing on all platforms.
 
 ## Requirements
@@ -30,15 +33,14 @@ I thought, why not make my own?
 1. Updates text every second. So, the timer is perfect.
 2. Incredibly lightweight.
     - Uses almost no resources while idling or updating text.
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/821265539841392640/unknown.png"/>  
-   
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/821265539841392640/unknown.png"/>
     - Still incredibly light while updating images.
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/821266255503687700/unknown.png"/>
 3. Grabs images from Spotify and only updates them when the URL is different.
 4. Automatically hides when a song is not found or when a song is paused.
 5. Dynamically updates resolution to always stay on your screen even if a song name is a lot longer.  
 6. Always on Top.
-7. Automatically gets image accent colours and sets them  as the background along with getting the opposite accent colours and putting them as the font for it to look good.
+7. Automatically gets image accent colours and sets them as the background along with getting the opposite accent colours and putting them as the font for it to look good.
 8. Most of the time, It shows up-to-date information.  
 9. Handles errors by hiding the GUI until the error stops.  
 10. Plenty of configuration options are available in `config.ini`.
