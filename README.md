@@ -33,7 +33,7 @@ I thought, why not make my own?
 1. Updates text every second. So, the timer is perfect.
 2. Incredibly lightweight.
     - Uses almost no resources while idling or updating text.
-   <img src="https://cdn.discordapp.com/attachments/814731117416546307/821265539841392640/unknown.png"/>
+   <img src="https://cdn.discordapp.com/attachments/814731117416546307/821265539841392640/unknown.png"/>  
     - Still incredibly light while updating images.
    <img src="https://cdn.discordapp.com/attachments/814731117416546307/821266255503687700/unknown.png"/>
 3. Grabs images from Spotify and only updates them when the URL is different.
