@@ -20,6 +20,9 @@ I thought, why not make my own?
 ## Changelog
  - Automatically snaps to current display (hopefully)
  - Minor optimizations & bug fixes
+ - Automatically creates a default config if there is an error
+ - Added title in config and removed debug mode
+ - Fixed urllib timeout errors
 
 ## Roadmap  
 
