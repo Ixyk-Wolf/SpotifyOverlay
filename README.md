@@ -49,7 +49,7 @@ I thought, why not make my own?
 8. Most of the time, It shows up-to-date information.  
 9. Handles errors by hiding the GUI until the error stops.  
 10. Plenty of configuration options are available in `config.ini`.   
-11. Uses less ram the longer you use it (I have no idea either.
+11. Uses less ram the longer you use it (I have no idea either).
 
 **Example of Dynamic Resolution:**
 
