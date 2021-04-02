@@ -18,7 +18,8 @@ I thought, why not make my own?
 - Thank You to [NUTTA_BUSHA](https://www.reddit.com/user/NUTTA_BUSTAH/) for helping with some ideas on images.
 
 ## Changelog
- - More small optimizations including making some methods static
+ - Automatically snaps to current display (hopefully)
+ - Minor optimizations & bug fixes
 
 ## Roadmap  
 
