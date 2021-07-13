@@ -1,3 +1,6 @@
+### This repo is no longer maintained due to this project having little to no ways to improve it.  
+I rewrote the entire thing as a test and got no performance difference, there is therefore no need to update it anymore.  
+
 
 # Simple Spotify Overlay  
 This is a simple yet powerful Spotify Overlay.  
@@ -27,7 +30,7 @@ I thought, why not make my own?
 ## Roadmap  
 
  - [x] Add a config system.
- - [ ] Testing on all platforms.
+ - [x] Testing on all platforms.
 
 ## Requirements
  - Python 3.6 or higher
