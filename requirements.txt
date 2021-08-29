@@ -1,2 +1,2 @@
-Pillow==8.1.2
-spotipy==2.17.1
+Pillow>=8.1.2
+spotipy>=2.17.1
