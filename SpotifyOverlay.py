@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 
 class SpotifyOverlay:
     """
-    This class will show a Spotify overlay with music title, artist, time and a picture of the song
+    This class will show a Spotify overlay with music title, artist, time and a picture of the song.
     """
     def __init__(self,
         background_color,
@@ -18,111 +18,128 @@ class SpotifyOverlay:
         artist_font_size,
         time_font_size,
         spotify_object,
-        image_position,
         vertical_screen_position,
         horizontal_screen_position
     ):
+        self.window = Tk()
+        self.window.title("Spotify Overlay")
+        self.window.attributes('-topmost', True)
+        self.window.overrideredirect(True)
+        self.window.configure(bg=background_color)
+        self.window.geometry('+15+15')
+
+        self.title = StringVar()
+        self.artist = StringVar()
+        self.time = StringVar()
+        self.image = None
+        self.last_user_playing_track = None
+
+        self.background_color = background_color
+        self.title_font_color = title_font_color
+        self.artist_font_color = artist_font_color
+        self.time_font_color = time_font_color
+        self.font_name = font_name
+        self.title_font_size = title_font_size
+        self.artist_font_size = artist_font_size
+        self.time_font_size = time_font_size
         self.spotify_object = spotify_object
-        self.image_position = image_position
         self.vertical_screen_position = vertical_screen_position
         self.horizontal_screen_position = horizontal_screen_position
-        self.win = Tk()
-        self.win.title("Spotify Overlay")
-        self.tk_var = StringVar()
-        self.tk_var.set("Loading. . .")
-        self.lab = Label(
-            self.win,
-            textvariable=self.tk_var,
-            bg=background_color,
-            fg=title_font_color,
-            font=(
-                font_name,
-                title_font_size
-                )
-            )
-        self.lab.place(x=0, y=0)
-        self.labimgurl = None
-        self.win.attributes('-topmost', True)
-        self.win.overrideredirect(True)
-        self.width = self.win.winfo_screenwidth()
-        self.height = self.win.winfo_screenheight()
-        self.olddata = None
-        self.hide()
-        self.updater()
-        self.win.mainloop()
 
-    def updater(self):
-        try:
-            data = self.spotify_object.current_user_playing_track()
-            if self.olddata == data:
-                self.hide()
-            else:
-                self.show()
-                try:
-                    self.ensure_image_state(data["item"]["album"]["images"][2]["url"])
-                    self.refreshresolution()
-                    songname = data["item"]["name"]
-                    artist = data['item']['artists'][0]['name']
-                    progress = data["progress_ms"]
-                    length = data["item"]["duration_ms"]
-                    intotrackm, intotracks = self.parseduration(progress)
-                    lentrackm, lentracks = self.parseduration(length)
-                    if len(songname) > 16:
-                        songname = songname[:16]
-                    if len(artist) > 16:
-                        artist = artist[:16]
-                    self.tk_var.set(
-                        f"{songname}\n {artist}\n{intotrackm}:{intotracks} / {lentrackm}")
-                    self.updatewinres()
-                    self.olddata = data
-                except Exception:
-                    self.hide()
-                    self.olddata = data
-        except:
-            pass
-        self.win.after(700, self.updater)
+        self.create_labels()
+        self.update_content()
+        self.window.mainloop()
+
+    def create_labels(self):
+        """
+        Create labels (title, artist, time and image)
+        """
+        label_title = Label(
+            self.window,
+            textvariable=self.title,
+            fg=self.title_font_color,
+            font=(self.font_name , self.time_font_size),
+            bg=self.background_color
+        )
+        label_title.grid(row=0, column=0, ipadx=3, sticky="SW")
+
+        label_artist = Label(
+            self.window,
+            textvariable=self.artist,
+            fg=self.artist_font_color,
+            font=(self.font_name, self.artist_font_size),
+            bg=self.background_color
+        )
+        label_artist.grid(row=1, column=0, sticky="NW", ipadx=3)
+
+        label_time = Label(
+            self.window,
+            textvariable=self.time,
+            fg=self.time_font_color,
+            font=(self.font_name, self.time_font_size),
+            bg=self.background_color
+        )
+        label_time.grid(row=2, column=0, sticky="N", ipadx=3)
+
+        label_image = Label(self.window, image = self.image, bg=self.background_color)
+        label_image.grid(row=0, column=1, rowspan=3, ipadx=5, ipady=5)
+
+        self.title.set("Loading...")
+        self.artist.set("Loading...")
+        self.time.set("00:00 / 00:00")
+
+    def update_content(self):
+        """
+        Update content with value queried from Spotify.
+        """
+        current_user_playing_track = self.spotify_object.current_user_playing_track()
+        if self.last_user_playing_track == current_user_playing_track:
+            self.hide()
+        else:
+            self.show()
+            # Update image
+            image_url = current_user_playing_track["item"]["album"]["images"][2]["url"]
+            image_request = PoolManager().request("GET", image_url)
+            self.image = ImageTk.PhotoImage((Image.open(BytesIO(image_request.data)).resize((54, 54))))
+
+            label_image = Label(self.window, image=self.image, bg=self.background_color)
+            label_image.grid(row=0, column=1, rowspan=3, ipadx=5, ipady=5)
+
+            title = current_user_playing_track ["item"]["name"]
+            artist = current_user_playing_track ['item']['artists'][0]['name']
+            progress = current_user_playing_track ["progress_ms"]
+            length = current_user_playing_track ["item"]["duration_ms"]
+            intotrackm, intotracks = self.parse_duration(progress)
+            lentrackm, lentracks = self.parse_duration(length)
+            self.title.set(
+                f"{title}")
+            self.artist.set(
+                f"{artist}")
+            self.time.set(
+                f"{intotrackm}:{intotracks} / {lentrackm}:{lentracks}")
+            self.last_user_playing_track = current_user_playing_track
+        self.window.after(700, self.update_content)
 
     def show(self):
-        self.win.update()
-        self.win.deiconify()
+        """
+        Make the window visible.
+        """
+        self.window.update()
+        self.window.deiconify()
 
     def hide(self):
-        self.win.withdraw()
-
-    def updateimage(self, url: str):
-        small = PoolManager().request("GET", url)
-        img = ImageTk.PhotoImage((Image.open(BytesIO(small.data))))
-        self.lab.img = img
-        self.labimgurl = url
-        self.lab.configure(textvariable=self.tk_var, image=img, compound=self.image_position,
-                           bg=self.rgb2hex(30, 28, 31), # background color
-                           fg=self.rgb2hex(255, 255, 255)) # font color
-
-    def ensure_image_state(self, url):
-        if url != self.labimgurl:
-            self.updateimage(url)
-
-    def updatewinres(self):
-        if self.horizontal_screen_position.lower() == "left":
-            w = 15
-        else:
-            w = (int(self.width)) - self.lab.winfo_width() - 15
-        if self.vertical_screen_position.lower() == "bottom":
-            h = self.height - self.height * 0.15
-        elif self.vertical_screen_position.lower() == "top":
-            h = self.height - self.height * 0.95
-        else:
-            h = (int(self.height)) / 2
-        self.win.geometry("%dx%d+%d+%d" % (self.lab.winfo_width(), self.lab.winfo_height(), w, h))
-
-    def refreshresolution(self) -> None:
-        self.width = self.win.winfo_screenwidth()
-        self.height = self.win.winfo_screenheight()
+        """
+        Hide the window.
+        """
+        self.window.withdraw()
 
     @staticmethod
-    def rgb2hex(r, g, b):
-        return "#{:02x}{:02x}{:02x}".format(r, g, b)
-
-    @staticmethod
-    def parseduration(millis: {__floordiv__}) -> int:
-        return (millis // (1000 * 60)) % 60, (millis // 1000) % 60
+    def parse_duration(milliseconds):
+        """
+        Convert milliseconds in minutes and seconds
+        """
+        minutes =  int((milliseconds // (1000 * 60)) % 60)
+        seconds = int((milliseconds // 1000) % 60)
+        if seconds < 10:
+            seconds = '0' + str(minutes)
+        return minutes, seconds

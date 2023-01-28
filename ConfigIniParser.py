@@ -27,13 +27,6 @@ def parse_config(config_file = "config.ini"):
     vertical_screen_position = config["Config"]["verticalscreenpos"]
     horizontal_screen_position = config["Config"]["horizontalscreenpos"]
 
-    image_position = config["Config"]["imagepos"]
-
-    if image_position.lower() == "right":
-        image_position = RIGHT
-    else:
-        image_position = LEFT
-
     print("Config Loaded.")
 
     return (
@@ -48,6 +41,5 @@ def parse_config(config_file = "config.ini"):
                 artist_font_color,
                 time_font_color,
                 vertical_screen_position,
-                horizontal_screen_position,
-                image_position
+                horizontal_screen_position
             )
