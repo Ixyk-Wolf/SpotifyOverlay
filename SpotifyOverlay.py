@@ -116,7 +116,7 @@ class SpotifyOverlay:
             self.artist.set(
                 f"{artist}")
             self.time.set(
-                f"{intotrackm}:{intotracks} / {lentrackm}:{lentracks}")
+                f"{intotrackm:02}:{intotracks:02} / {lentrackm:02}:{lentracks:02}")
             self.last_user_playing_track = current_user_playing_track
         self.window.after(700, self.update_content)
 
@@ -138,8 +138,4 @@ class SpotifyOverlay:
         """
         Convert milliseconds in minutes and seconds
         """
-        minutes =  int((milliseconds // (1000 * 60)) % 60)
-        seconds = int((milliseconds // 1000) % 60)
-        if seconds < 10:
-            seconds = '0' + str(minutes)
-        return minutes, seconds
+        return (milliseconds // (1000 * 60)) % 60, (milliseconds // 1000) % 60
