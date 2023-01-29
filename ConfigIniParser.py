@@ -1,5 +1,4 @@
 from configparser import ConfigParser
-from tkinter import RIGHT, LEFT
 
 def parse_config(config_file = "config.ini"):
     """

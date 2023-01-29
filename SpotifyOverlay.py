@@ -67,8 +67,16 @@ class SpotifyOverlay:
             vertical_window_position = str(int(self.screen_height/2 - self.window_height/2))
         else:
             vertical_window_position = '15'
-        
-        self.window.geometry(str(self.window_width) + 'x' + str(self.window_height) + '+' + horizontal_window_position + '+' + vertical_window_position) 
+
+        self.window.geometry(
+            str(self.window_width) +
+            'x' +
+            str(self.window_height) +
+            '+' +
+            horizontal_window_position +
+            '+' +
+            vertical_window_position
+        )
         self.create_labels()
         self.update_content()
         self.window.mainloop()
@@ -118,7 +126,8 @@ class SpotifyOverlay:
         Update content with value queried from Spotify.
         """
         current_user_playing_track = self.spotify_object.current_user_playing_track()
-        if self.last_user_playing_track == current_user_playing_track or current_user_playing_track is None:
+        if (self.last_user_playing_track == current_user_playing_track
+            or current_user_playing_track is None):
             self.hide()
         elif self.title.get() == current_user_playing_track ["item"]["name"]:
             self.show()
