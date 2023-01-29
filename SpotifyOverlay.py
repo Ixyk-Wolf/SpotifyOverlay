@@ -115,7 +115,9 @@ class SpotifyOverlay:
         Update content with value queried from Spotify.
         """
         current_user_playing_track = self.spotify_object.current_user_playing_track()
-        if self.title.get() == current_user_playing_track ["item"]["name"]:
+        if self.last_user_playing_track == current_user_playing_track:
+            self.hide()
+        elif self.title.get() == current_user_playing_track ["item"]["name"]:
             self.show()
             # If it's the same Music, it will only update time
             progress = current_user_playing_track ["progress_ms"]
