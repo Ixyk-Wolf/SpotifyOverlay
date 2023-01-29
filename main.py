@@ -16,7 +16,8 @@ from SpotifyOverlay import SpotifyOverlay
     artist_font_color,
     time_font_color,
     vertical_screen_position,
-    horizontal_screen_position
+    horizontal_screen_position,
+    window_transparency
 ) = parse_config()
 
 # Authenticate to Spotify
@@ -37,5 +38,6 @@ overlay = SpotifyOverlay(
     time_font_size=time_font_size,
     spotify_object=spotify_object,
     vertical_screen_position=vertical_screen_position,
-    horizontal_screen_position=horizontal_screen_position
+    horizontal_screen_position=horizontal_screen_position,
+    window_transparency=window_transparency
 )

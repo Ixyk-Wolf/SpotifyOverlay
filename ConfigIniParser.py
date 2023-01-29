@@ -27,6 +27,8 @@ def parse_config(config_file = "config.ini"):
     vertical_screen_position = config["Config"]["verticalscreenpos"]
     horizontal_screen_position = config["Config"]["horizontalscreenpos"]
 
+    window_transparency = config["Config"]["transparency"]
+
     print("Config Loaded.")
 
     return (
@@ -41,5 +43,6 @@ def parse_config(config_file = "config.ini"):
                 artist_font_color,
                 time_font_color,
                 vertical_screen_position,
-                horizontal_screen_position
+                horizontal_screen_position,
+                window_transparency
             )

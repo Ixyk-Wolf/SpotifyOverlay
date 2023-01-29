@@ -8,7 +8,8 @@ class SpotifyOverlay:
     """
     This class will show a Spotify overlay with music title, artist, time and a picture of the song.
     """
-    def __init__(self,
+    def __init__(
+        self,
         background_color,
         title_font_color,
         artist_font_color,
@@ -19,11 +20,13 @@ class SpotifyOverlay:
         time_font_size,
         spotify_object,
         vertical_screen_position,
-        horizontal_screen_position
+        horizontal_screen_position,
+        window_transparency
     ):
         self.window = Tk()
         self.window.title("Spotify Overlay")
         self.window.attributes('-topmost', True)
+        self.window.attributes('-alpha', window_transparency)
         self.window.overrideredirect(True)
         self.window.configure(bg=background_color)
 
