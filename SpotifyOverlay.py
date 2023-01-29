@@ -115,7 +115,7 @@ class SpotifyOverlay:
         Update content with value queried from Spotify.
         """
         current_user_playing_track = self.spotify_object.current_user_playing_track()
-        if self.last_user_playing_track == current_user_playing_track:
+        if self.last_user_playing_track == current_user_playing_track or current_user_playing_track is None:
             self.hide()
         elif self.title.get() == current_user_playing_track ["item"]["name"]:
             self.show()
