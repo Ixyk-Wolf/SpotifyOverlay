@@ -7,27 +7,23 @@ class SpotifyAuthentication:
     This class will authenticate a Spotify User, using
     an app client ID and secret.
     """
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id, client_secret, scope):
         self.client_id = client_id
         self.client_secret = client_secret
-        self.scope = "user-read-playback-state"
+        self.scope = scope
         self.redirect_uri = "http://localhost:8080/"
-        self.requests_timeout = 5
 
     def create_auth_manager(self):
         """
         This function will authenticate to Spotify user using credentials.
         """
         try:
-            print("Authentication to Spotify...")
             auth_manager = SpotifyOAuth(
                 scope = self.scope,
                 client_id = self.client_id,
                 client_secret = self.client_secret,
-                redirect_uri = self.redirect_uri,
-                requests_timeout = self.requests_timeout
+                redirect_uri = self.redirect_uri
             )
-            print("Authenticated.")
         except SpotifyOauthError:
             sys.exit("""An error occured while authenticating to Spotify server,
                 please verify your credentials or that the Spotify servers are accessible.""")

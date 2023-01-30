@@ -1,4 +1,4 @@
-from tkinter import Tk, StringVar, Label, NW
+from tkinter import Tk, StringVar, Label, NW, Button
 from io import BytesIO
 from operator import __floordiv__
 from urllib3 import PoolManager
@@ -51,7 +51,7 @@ class SpotifyOverlay:
         self.screen_width = self.window.winfo_screenwidth()
         self.screen_height = self.window.winfo_screenheight()
 
-        self.window_width = 219
+        self.window_width = 252
         self.window_height = 68
 
         if self.horizontal_screen_position == 'right':
@@ -115,7 +115,19 @@ class SpotifyOverlay:
             bg=self.background_color,
             width=20
         )
-        label_time.grid(row=2, column=0, padx=(5,0))
+        label_time.grid(row=2, column=0)
+
+        button = Button(
+            self.window,
+            text='>|',
+            command=self.spotify_object.next_track,
+            bg=self.background_color,
+            fg=self.title_font_color,
+            font=(self.font_name, 8),
+            activebackground=self.background_color,
+            borderwidth=0
+        )
+        button.grid(row=0, column=1, rowspan=3, padx=(5,0))
 
         self.title.set("Loading...")
         self.artist.set("Loading...")
@@ -147,7 +159,7 @@ class SpotifyOverlay:
                 (Image.open(BytesIO(image_request.data)).resize((54, 54)))
             )
             label_image = Label(self.window, image=self.image, bg=self.background_color, width=54)
-            label_image.grid(row=0, column=1, rowspan=3, padx=(5,5), pady=(5,5))
+            label_image.grid(row=0, column=2, rowspan=3, padx=(5,5), pady=(5,5))
 
             title = current_user_playing_track ["item"]["name"]
             artist = current_user_playing_track ['item']['artists'][0]['name']

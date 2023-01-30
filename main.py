@@ -1,12 +1,12 @@
 from operator import __floordiv__
-from ConfigIniParser import parse_config
+from ConfigIniParser import parse_config, parse_credentials
 from SpotifyAuthentication import SpotifyAuthentication
 from SpotifyOverlay import SpotifyOverlay
 
 # Load configuration
+client_id, client_secret = parse_credentials()
+
 (
-    client_id,
-    client_secret,
     font_name,
     title_font_size,
     artist_font_size,
@@ -23,7 +23,8 @@ from SpotifyOverlay import SpotifyOverlay
 # Authenticate to Spotify
 spotify_object = SpotifyAuthentication(
     client_id = client_id,
-    client_secret = client_secret
+    client_secret = client_secret,
+    scope = "user-read-playback-state user-modify-playback-state"
 ).create_spotify_object()
 
 # Create overlay

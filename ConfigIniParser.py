@@ -6,11 +6,7 @@ def parse_config(config_file = "config.ini"):
     """
     config = ConfigParser()
 
-    print("Attempting to load config...")
     config.read(config_file)
-
-    client_id = config["Keys"]["clientid"]
-    client_secret = config["Keys"]["clientsecret"]
 
     font_name = config["Config"]["fontname"]
 
@@ -28,11 +24,7 @@ def parse_config(config_file = "config.ini"):
 
     window_transparency = config["Config"]["transparency"]
 
-    print("Config Loaded.")
-
     return (
-                client_id,
-                client_secret,
                 font_name,
                 title_font_size,
                 artist_font_size,
@@ -45,3 +37,15 @@ def parse_config(config_file = "config.ini"):
                 horizontal_screen_position,
                 window_transparency
             )
+
+def parse_credentials(config_file = "config.ini"):
+    """
+    Parse credentials only
+    """
+    config = ConfigParser()
+
+    config.read(config_file)
+
+    client_id = config["Keys"]["clientid"]
+    client_secret = config["Keys"]["clientsecret"]
+    return client_id, client_secret
