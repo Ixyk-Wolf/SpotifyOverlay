@@ -127,7 +127,7 @@ class SpotifyOverlay:
             activebackground=self.background_color,
             borderwidth=0
         )
-        button.grid(row=0, column=1, rowspan=3, padx=(5,0))
+        button.grid(row=0, column=1, rowspan=3, padx=(10,5))
 
         self.title.set("Loading...")
         self.artist.set("Loading...")
