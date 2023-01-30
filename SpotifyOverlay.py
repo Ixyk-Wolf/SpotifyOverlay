@@ -33,8 +33,10 @@ class SpotifyOverlay:
         self.title = StringVar()
         self.artist = StringVar()
         self.time = StringVar()
+        self.play_status = StringVar()
         self.image = None
         self.last_user_playing_track = None
+        self.is_playing = True
 
         self.background_color = background_color
         self.title_font_color = title_font_color
@@ -119,6 +121,18 @@ class SpotifyOverlay:
 
         button = Button(
             self.window,
+            textvariable=self.play_status,
+            command=self.play_or_pause,
+            bg=self.background_color,
+            fg=self.title_font_color,
+            font=(self.font_name, 8),
+            activebackground=self.background_color,
+            borderwidth=0
+        )
+        button.grid(row=0, column=1, rowspan=2, padx=(10,5))
+
+        button = Button(
+            self.window,
             text='>|',
             command=self.spotify_object.next_track,
             bg=self.background_color,
@@ -127,8 +141,12 @@ class SpotifyOverlay:
             activebackground=self.background_color,
             borderwidth=0
         )
-        button.grid(row=0, column=1, rowspan=3, padx=(10,5))
-
+        button.grid(row=2, column=1, padx=(10,5))
+        if self.spotify_object.current_playback():
+            if self.spotify_object.current_playback()['is_playing']:
+                self.play_status.set('II')
+            else:
+                self.play_status.set('>')
         self.title.set("Loading...")
         self.artist.set("Loading...")
         self.time.set("00:00 / 00:00")
@@ -137,6 +155,13 @@ class SpotifyOverlay:
         """
         Update content with value queried from Spotify.
         """
+        if self.spotify_object.current_playback():
+            if self.spotify_object.current_playback()['is_playing']:
+                self.play_status.set("II")
+                self.is_playing = True
+            else:
+                self.play_status.set(">")
+                self.is_playing = False
         current_user_playing_track = self.spotify_object.current_user_playing_track()
         if (self.last_user_playing_track == current_user_playing_track
             or current_user_playing_track is None):
@@ -145,6 +170,7 @@ class SpotifyOverlay:
             self.show()
             # If it's the same Music, it will only update time
             progress = current_user_playing_track ["progress_ms"]
+
             length = current_user_playing_track ["item"]["duration_ms"]
             intotrackm, intotracks = self.parse_duration(progress)
             lentrackm, lentracks = self.parse_duration(length)
@@ -152,6 +178,7 @@ class SpotifyOverlay:
                 f"{intotrackm:02}:{intotracks:02} / {lentrackm:02}:{lentracks:02}")
         else:
             self.show()
+
             # Update image
             image_url = current_user_playing_track["item"]["album"]["images"][2]["url"]
             image_request = PoolManager().request("GET", image_url)
@@ -173,6 +200,7 @@ class SpotifyOverlay:
                 f"{artist}")
             self.time.set(
                 f"{intotrackm:02}:{intotracks:02} / {lentrackm:02}:{lentracks:02}")
+
             self.last_user_playing_track = current_user_playing_track
         self.window.after(700, self.update_content)
 
@@ -188,6 +216,13 @@ class SpotifyOverlay:
         Hide the window.
         """
         self.window.withdraw()
+
+    def play_or_pause(self):
+        if self.is_playing:
+            self.spotify_object.pause_playback()
+        else:
+            self.spotify_object.start_playback()
+
 
     @staticmethod
     def parse_duration(milliseconds):
